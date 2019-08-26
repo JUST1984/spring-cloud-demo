@@ -8,8 +8,14 @@ import lombok.Data;
  * @date: 2019-08-15 21:31
  */
 @Data
-public class RespVo {
+public class RespVo<T> {
 
-    private String message;
+    private T data;
+
+    public static RespVo data(Object data) {
+        RespVo respVo = new RespVo();
+        respVo.setData(data);
+        return respVo;
+    }
 
 }

@@ -26,9 +26,7 @@ public class ClientController {
 
     @GetMapping("message")
     public RespVo message(String message) {
-        ReqVo reqVo = new ReqVo();
-        reqVo.setMessage(message);
-        return restTemplate.postForObject("http://spring-cloud-demo-service-provider/provider/message", reqVo, RespVo.class);
+        return restTemplate.postForObject("http://spring-cloud-demo-service-provider/provider/data", ReqVo.data(message), RespVo.class);
     }
 
     @GetMapping("role")
