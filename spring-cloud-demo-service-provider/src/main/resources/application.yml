@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: spring-cloud-demo-service-provider
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 8090

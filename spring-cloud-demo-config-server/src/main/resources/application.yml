@@ -9,7 +9,7 @@ management:
 
 spring:
   application:
-    name: spring-cloud-config-server-demo
+    name: spring-cloud-demo-config-server
   cloud:
     config:
       server:

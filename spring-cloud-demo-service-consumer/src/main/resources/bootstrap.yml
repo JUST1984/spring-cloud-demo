@@ -1,0 +1,14 @@
+eureka:
+  client:
+    service-url:
+      defaultZone: http://127.0.0.1:9999/eureka
+
+spring:
+  cloud:
+    config:
+      name: spring-cloud-demo-service-consumer
+      profile: default
+      label: master
+      discovery:
+        enabled: true
+        service-id: spring-cloud-demo-config-server
