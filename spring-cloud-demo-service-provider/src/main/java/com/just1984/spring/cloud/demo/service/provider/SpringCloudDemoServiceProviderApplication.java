@@ -3,6 +3,7 @@ package com.just1984.spring.cloud.demo.service.provider;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
+import org.springframework.cloud.netflix.hystrix.EnableHystrix;
 
 /**
  * @description: 服务提供方
@@ -11,6 +12,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
+@EnableHystrix
 public class SpringCloudDemoServiceProviderApplication {
 
     public static void main(String[] args) {

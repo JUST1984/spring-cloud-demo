@@ -2,8 +2,8 @@ package com.just1984.spring.cloud.demo.service.consumer.controller;
 
 import com.just1984.spring.cloud.demo.service.api.vo.ReqVo;
 import com.just1984.spring.cloud.demo.service.api.vo.RespVo;
+import com.just1984.spring.cloud.demo.service.consumer.hystrix.ConsumerHystrixCommand;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,17 +21,10 @@ public class ClientController {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Value("${role}")
-    private String role;
-
     @GetMapping("message")
     public RespVo message(String message) {
-        return restTemplate.postForObject("http://spring-cloud-demo-service-provider/provider/data", ReqVo.data(message), RespVo.class);
-    }
-
-    @GetMapping("role")
-    public RespVo role() {
-        return message(role);
+        ConsumerHystrixCommand command = new ConsumerHystrixCommand(restTemplate, ReqVo.data(message));
+        return command.execute();
     }
 
 }

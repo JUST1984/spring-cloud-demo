@@ -9,6 +9,7 @@
         <module>spring-cloud-demo-service-provider</module>
         <module>spring-cloud-demo-service-consumer</module>
         <module>spring-cloud-demo-service-api</module>
+        <module>spring-cloud-demo-hystrix-dashboard</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>
