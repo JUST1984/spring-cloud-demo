@@ -5,6 +5,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 
 /**
  * @description: 服务消费者
@@ -15,6 +16,7 @@ import org.springframework.cloud.netflix.ribbon.RibbonClient;
 @EnableDiscoveryClient
 @RibbonClient("spring-cloud-demo-service-provider")
 @EnableCircuitBreaker
+@EnableFeignClients
 public class SpringCloudDemoServiceConsumerApplication {
 
     public static void main(String[] args) {

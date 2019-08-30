@@ -8,9 +8,7 @@ package com.just1984.spring.cloud.demo.service.consumer.test;
 public class TestMain {
 
     public static void main(String[] args) {
-        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-            System.out.println("shut down");
-        }));
+        
     }
 
 }
