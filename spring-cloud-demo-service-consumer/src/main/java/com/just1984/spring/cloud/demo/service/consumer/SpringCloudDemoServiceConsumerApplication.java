@@ -14,7 +14,7 @@ import org.springframework.cloud.openfeign.EnableFeignClients;
  */
 @SpringBootApplication
 @EnableDiscoveryClient
-@RibbonClient("spring-cloud-demo-service-provider")
+@RibbonClient("${spring-cloud-demo-service-provider.application.name}")
 @EnableCircuitBreaker
 @EnableFeignClients(basePackages = {"com.just1984.spring.cloud.demo.service.api.sdk"})
 public class SpringCloudDemoServiceConsumerApplication {

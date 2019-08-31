@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @date: 2019-08-30 10:22
  */
 @FeignClient(
-        name = "spring-cloud-demo-service-provider",
+        name = "${spring-cloud-demo-service-provider.application.name}",
         path = "/provider",
         fallback = ProviderApi.ProviderApiFallback.class
 )
