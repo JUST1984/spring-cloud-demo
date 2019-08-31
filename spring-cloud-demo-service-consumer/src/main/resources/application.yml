@@ -10,3 +10,7 @@ management:
 spring:
   application:
     name: spring-cloud-demo-service-consumer
+
+spring-cloud-demo-service-provider:
+  application:
+    name: spring-cloud-demo-service-provider

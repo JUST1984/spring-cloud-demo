@@ -10,7 +10,11 @@ import org.springframework.web.bind.annotation.PostMapping;
  * @author: zhangyifan@wshifu.com
  * @date: 2019-08-30 10:22
  */
-@FeignClient(name = "spring-cloud-demo-service-provider", path = "/provider")
+@FeignClient(
+        name = "spring-cloud-demo-service-provider",
+        path = "/provider",
+        fallback = ProviderApi.ProviderApiFallback.class
+)
 public interface ProviderApi {
 
     /**
@@ -20,5 +24,15 @@ public interface ProviderApi {
      */
     @PostMapping("/data")
     RespVo data(ReqVo reqVo);
+
+
+    class ProviderApiFallback implements ProviderApi {
+
+        @Override
+        public RespVo data(ReqVo reqVo) {
+            return RespVo.data("fallback");
+        }
+
+    }
 
 }
