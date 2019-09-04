@@ -1,9 +1,12 @@
 package com.just1984.spring.cloud.demo.service.api.sdk;
 
-import com.just1984.spring.cloud.demo.service.api.vo.ReqVo;
-import com.just1984.spring.cloud.demo.service.api.vo.RespVo;
+import com.google.common.collect.Lists;
+import com.just1984.spring.cloud.demo.service.api.vo.User;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import java.util.List;
 
 /**
  * @description:
@@ -18,21 +21,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 public interface ProviderApi {
 
     /**
-     * provider data
-     * @param reqVo
+     * 添加用户
+     * @param user
+     */
+    @PostMapping("/addUser")
+    void addUser(User user);
+
+    /**
+     * 获取用户列表
      * @return
      */
-    @PostMapping("/data")
-    RespVo data(ReqVo reqVo);
+    @GetMapping("/getUserList")
+    List<User> getUserList();
 
 
     class ProviderApiFallback implements ProviderApi {
 
         @Override
-        public RespVo data(ReqVo reqVo) {
-            return RespVo.data("fallback");
-        }
+        public void addUser(User user) {}
 
+        @Override
+        public List<User> getUserList() {
+            return Lists.newArrayList();
+        }
     }
 
 }

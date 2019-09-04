@@ -10,6 +10,7 @@
         <module>spring-cloud-demo-service-consumer</module>
         <module>spring-cloud-demo-service-api</module>
         <module>spring-cloud-demo-hystrix-dashboard</module>
+        <module>spring-cloud-demo-zuul</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

@@ -1,13 +1,11 @@
 package com.just1984.spring.cloud.demo.service.consumer.controller;
 
 import com.just1984.spring.cloud.demo.service.api.sdk.ProviderApi;
-import com.just1984.spring.cloud.demo.service.api.vo.ReqVo;
-import com.just1984.spring.cloud.demo.service.api.vo.RespVo;
+import com.just1984.spring.cloud.demo.service.api.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 /**
  * @description:
@@ -21,9 +19,14 @@ public class ClientController {
     @Autowired
     private ProviderApi providerApi;
 
-    @PostMapping("data")
-    public RespVo data(@RequestBody ReqVo reqVo) {
-        return providerApi.data(reqVo);
+    @PostMapping("/addUser")
+    public void addUser(@RequestBody User user) {
+        providerApi.addUser(user);
+    }
+
+    @GetMapping("/getUserList")
+    public List<User> getUserList() {
+        return providerApi.getUserList();
     }
 
 }

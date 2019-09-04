@@ -1,9 +1,8 @@
 package com.just1984.spring.cloud.demo.service.provider.controller;
 
-import com.just1984.spring.cloud.demo.service.api.exception.BusinessException;
+import com.google.common.collect.Lists;
 import com.just1984.spring.cloud.demo.service.api.sdk.ProviderApi;
-import com.just1984.spring.cloud.demo.service.api.vo.ReqVo;
-import com.just1984.spring.cloud.demo.service.api.vo.RespVo;
+import com.just1984.spring.cloud.demo.service.api.vo.User;
 import com.just1984.spring.cloud.demo.service.provider.service.ProviderService;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
@@ -13,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -30,29 +30,29 @@ public class ProviderController implements ProviderApi {
     @Autowired
     private ProviderService providerService;
 
+    @Override
+    public void addUser(@RequestBody User user) {
+        providerService.addUser(user);
+    }
+
+    @Override
     @HystrixCommand(
             commandProperties = {
-                @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
             },
-            fallbackMethod = "fallbackForData"
+            fallbackMethod = "fallbackForGetUserList"
     )
-    @Override
-    public RespVo data(@RequestBody ReqVo reqVo) {
-        int cost = random.nextInt(200);
-        log.info("cost: {} ms", cost);
+    public List<User> getUserList() {
         try {
-            Thread.sleep(cost);
-        } catch (InterruptedException e) {}
-        return providerService.data(reqVo);
+            Thread.sleep(random.nextInt(200));
+        } catch (InterruptedException e) {
+            log.error("InterruptedException:", e);
+        }
+        return providerService.getUserList();
     }
 
-    public RespVo fallbackForData(ReqVo reqVo) {
-        return RespVo.data("default");
-    }
-
-    @RequestMapping("exception")
-    public RespVo exception() {
-        throw new BusinessException("BusinessException");
+    public List<User> fallbackForGetUserList() {
+        return Lists.newArrayList();
     }
 
 }
