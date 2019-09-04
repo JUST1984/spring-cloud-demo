@@ -6,17 +6,18 @@ import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.netflix.ribbon.RibbonClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
+import org.springframework.context.annotation.EnableAspectJAutoProxy;
 
 /**
  * @description: 服务消费者
  * @author: zhangyifan@wshifu.com
  * @date: 2019-08-26 20:12
  */
-@SpringBootApplication
-@EnableDiscoveryClient
 @RibbonClient("${spring-cloud-demo-service-provider.application.name}")
-@EnableCircuitBreaker
 @EnableFeignClients(basePackages = {"com.just1984.spring.cloud.demo.service.api.sdk"})
+@SpringBootApplication(scanBasePackages = {"com.just1984.spring.cloud.demo.service.consumer", "com.just1984.spring.cloud.demo.service.api"})
+@EnableDiscoveryClient
+@EnableCircuitBreaker
 public class SpringCloudDemoServiceConsumerApplication {
 
     public static void main(String[] args) {

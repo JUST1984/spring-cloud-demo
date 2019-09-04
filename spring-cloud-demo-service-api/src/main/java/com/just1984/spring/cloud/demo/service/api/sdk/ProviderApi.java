@@ -2,7 +2,10 @@ package com.just1984.spring.cloud.demo.service.api.sdk;
 
 import com.google.common.collect.Lists;
 import com.just1984.spring.cloud.demo.service.api.vo.User;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -31,10 +34,15 @@ public interface ProviderApi {
      * 获取用户列表
      * @return
      */
+    /*@HystrixCommand(
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
+            }
+    )*/
     @GetMapping("/getUserList")
     List<User> getUserList();
 
-
+    @Component
     class ProviderApiFallback implements ProviderApi {
 
         @Override
@@ -44,6 +52,7 @@ public interface ProviderApi {
         public List<User> getUserList() {
             return Lists.newArrayList();
         }
+
     }
 
 }

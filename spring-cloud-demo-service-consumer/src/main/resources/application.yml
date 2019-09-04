@@ -10,3 +10,7 @@ management:
 spring:
   application:
     name: spring-cloud-demo-service-consumer
+
+feign:
+  hystrix:
+    enabled: true
