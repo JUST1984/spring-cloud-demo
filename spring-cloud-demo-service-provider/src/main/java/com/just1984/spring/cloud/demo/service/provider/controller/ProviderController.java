@@ -1,8 +1,11 @@
 package com.just1984.spring.cloud.demo.service.provider.controller;
 
+import com.google.common.collect.Lists;
 import com.just1984.spring.cloud.demo.service.api.sdk.ProviderApi;
 import com.just1984.spring.cloud.demo.service.api.vo.User;
 import com.just1984.spring.cloud.demo.service.provider.service.ProviderService;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,6 +35,12 @@ public class ProviderController implements ProviderApi {
         providerService.addUser(user);
     }
 
+    @HystrixCommand(
+            commandProperties = {
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
+            },
+            fallbackMethod = "fallbackForGetUserList"
+    )
     @Override
     public List<User> getUserList() {
         try {
@@ -40,6 +49,10 @@ public class ProviderController implements ProviderApi {
             log.error("InterruptedException:", e);
         }
         return providerService.getUserList();
+    }
+
+    public List<User> fallbackForGetUserList() {
+        return Lists.newArrayList();
     }
 
 }

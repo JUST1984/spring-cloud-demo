@@ -2,8 +2,8 @@ package com.just1984.spring.cloud.demo.service.api.sdk;
 
 import com.google.common.collect.Lists;
 import com.just1984.spring.cloud.demo.service.api.vo.User;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
+import feign.hystrix.FallbackFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +19,7 @@ import java.util.List;
 @FeignClient(
         name = "${spring-cloud-demo-service-provider.application.name}",
         path = "/provider",
-        fallback = ProviderApi.ProviderApiFallback.class
+        fallbackFactory = ProviderApi.ProviderApiFallbackFactory.class
 )
 public interface ProviderApi {
 
@@ -34,15 +34,21 @@ public interface ProviderApi {
      * 获取用户列表
      * @return
      */
-    /*@HystrixCommand(
-            commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
-            }
-    )*/
     @GetMapping("/getUserList")
     List<User> getUserList();
 
+    @Slf4j
     @Component
+    class ProviderApiFallbackFactory implements FallbackFactory<ProviderApi> {
+
+        @Override
+        public ProviderApi create(Throwable e) {
+            log.error("触发服务降级", e);
+            return new ProviderApiFallback();
+        }
+
+    }
+
     class ProviderApiFallback implements ProviderApi {
 
         @Override
