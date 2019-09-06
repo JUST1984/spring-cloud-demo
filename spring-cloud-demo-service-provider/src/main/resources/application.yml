@@ -10,3 +10,9 @@ management:
 
 server:
   port: 8090
+
+just:
+  web:
+    mvc:
+      globalExceptionHandler:
+        enable: true

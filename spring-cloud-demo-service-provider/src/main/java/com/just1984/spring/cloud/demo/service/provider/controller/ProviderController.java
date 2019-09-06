@@ -37,7 +37,7 @@ public class ProviderController implements ProviderApi {
 
     @HystrixCommand(
             commandProperties = {
-                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "100")
+                    @HystrixProperty(name = "execution.isolation.thread.timeoutInMilliseconds", value = "150")
             },
             fallbackMethod = "fallbackForGetUserList"
     )

@@ -16,8 +16,8 @@ import java.util.concurrent.Executor;
  */
 @Slf4j
 @RestController
-@RequestMapping("client")
-public class ClientController {
+@RequestMapping("consumer")
+public class ConsumerController {
 
     @Autowired
     private ClientService clientService;
