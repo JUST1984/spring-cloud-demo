@@ -10,6 +10,10 @@ management:
 spring:
   application:
     name: spring-cloud-demo-service-consumer
+  kafka:
+    bootstrap-servers: localhost:9090
+    producer:
+      value-serializer: com.just1984.spring.cloud.demo.service.consumer.serializer.ObjectSerializer
 
 feign:
   hystrix:
