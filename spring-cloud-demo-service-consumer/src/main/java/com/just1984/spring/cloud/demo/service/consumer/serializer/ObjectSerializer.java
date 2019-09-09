@@ -1,13 +1,16 @@
 package com.just1984.spring.cloud.demo.service.consumer.serializer;
 
 import com.alibaba.fastjson.JSONObject;
-import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.common.serialization.Serializer;
 
-import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
-@Slf4j
+/**
+ * @description:
+ * @author: zhangyifan@wshifu.com
+ * @date: 2019-09-09 14:03:43
+ */
 public class ObjectSerializer implements Serializer<Object> {
 
     @Override
@@ -17,12 +20,7 @@ public class ObjectSerializer implements Serializer<Object> {
 
     @Override
     public byte[] serialize(String topic, Object data) {
-        try {
-            return JSONObject.toJSONString(data).getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            log.error("data serialize error", e);
-        }
-        return new byte[0];
+        return JSONObject.toJSONString(data).getBytes(StandardCharsets.UTF_8);
     }
 
     @Override

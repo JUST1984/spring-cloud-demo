@@ -4,10 +4,10 @@ import com.just1984.spring.cloud.demo.service.api.vo.User;
 import com.just1984.spring.cloud.demo.service.consumer.service.ClientService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.concurrent.Executor;
 
 /**
  * @description:
@@ -20,10 +20,8 @@ import java.util.concurrent.Executor;
 public class ConsumerController {
 
     @Autowired
+    @Qualifier("kafkaClientService")
     private ClientService clientService;
-
-    @Autowired
-    private Executor executor;
 
     @PostMapping("/addUser")
     public void addUser(@RequestBody User user) {
@@ -33,14 +31,6 @@ public class ConsumerController {
     @GetMapping("/getUserList")
     public List<User> getUserList() {
         return clientService.getUserList();
-    }
-
-    @GetMapping("testAsync")
-    public void testAsync() {
-        executor.execute(() -> {
-            log.info(Thread.currentThread().getName());
-        });
-        clientService.testAsync();
     }
 
 }
