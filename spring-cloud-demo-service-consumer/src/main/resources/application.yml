@@ -10,10 +10,18 @@ management:
 spring:
   application:
     name: spring-cloud-demo-service-consumer
-  kafka:
-    bootstrap-servers: localhost:9092
-    producer:
-      value-serializer: com.just1984.spring.cloud.demo.service.consumer.serializer.ObjectSerializer
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    producer:
+#      value-serializer: com.just1984.spring.cloud.demo.service.consumer.serializer.ObjectSerializer
+  cloud:
+    stream:
+      bindings:
+        springCloudDemoOutput:
+          destination: spring-cloud-demo
+      kafka:
+        binder:
+          brokers: localhost:9092
 
 feign:
   hystrix:

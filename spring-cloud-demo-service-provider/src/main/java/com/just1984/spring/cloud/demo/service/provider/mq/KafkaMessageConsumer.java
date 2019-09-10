@@ -1,13 +1,13 @@
 package com.just1984.spring.cloud.demo.service.provider.mq;
 
 import com.alibaba.fastjson.JSONObject;
-import com.just1984.spring.cloud.demo.service.api.mq.MqConstant;
+import com.just1984.spring.cloud.demo.service.api.mq.SpringCloudDemoProcessor;
 import com.just1984.spring.cloud.demo.service.api.vo.User;
 import com.just1984.spring.cloud.demo.service.provider.service.ProviderService;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.cloud.stream.annotation.StreamListener;
+import org.springframework.messaging.Message;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,13 +22,10 @@ public class KafkaMessageConsumer {
     @Autowired
     private ProviderService providerService;
 
-    @KafkaListener(topics = {MqConstant.DEFAULT_TOPIC})
-    public void handle(ConsumerRecord<String, Object> record) {
-        log.info("receive kafka message : 【{}】", record.toString());
-        if (MqConstant.ADD_USER_KEY.equals(record.key())) {
-            User user = JSONObject.parseObject(record.value().toString(), User.class);
-            providerService.addUser(user);
-        }
+    @StreamListener(SpringCloudDemoProcessor.INPUT)
+    public void handle(Message<?> message) {
+        User user = JSONObject.parseObject(message.getPayload().toString(), User.class);
+        providerService.addUser(user);
     }
 
 }

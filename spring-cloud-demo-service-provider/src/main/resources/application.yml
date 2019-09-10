@@ -1,11 +1,19 @@
 spring:
   application:
     name: spring-cloud-demo-service-provider
-  kafka:
-    bootstrap-servers: localhost:9092
-    consumer:
-      value-deserializer: com.just1984.spring.cloud.demo.service.provider.serializer.ObjectDeserializer
-      group-id: GID_spring-cloud-demo-service-provider
+#  kafka:
+#    bootstrap-servers: localhost:9092
+#    consumer:
+#      value-deserializer: com.just1984.spring.cloud.demo.service.provider.serializer.ObjectDeserializer
+#      group-id: GID_spring-cloud-demo-service-provider
+  cloud:
+    stream:
+      bindings:
+        springCloudDemoInput:
+          destination: spring-cloud-demo
+      kafka:
+        binder:
+          brokers: localhost:9092
 
 management:
   endpoints:
@@ -15,9 +23,3 @@ management:
 
 server:
   port: 8090
-
-just:
-  web:
-    mvc:
-      globalExceptionHandler:
-        enable: true

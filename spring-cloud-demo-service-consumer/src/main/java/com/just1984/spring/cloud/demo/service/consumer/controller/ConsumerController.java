@@ -21,16 +21,25 @@ public class ConsumerController {
 
     @Autowired
     @Qualifier("kafkaClientService")
-    private ClientService clientService;
+    private ClientService kafkaClientService;
+
+    @Autowired
+    @Qualifier("restClientService")
+    private ClientService restClientService;
 
     @PostMapping("/addUser")
     public void addUser(@RequestBody User user) {
-        clientService.addUser(user);
+        restClientService.addUser(user);
+    }
+
+    @PostMapping("/addUserAsync")
+    public void addUserAsync(@RequestBody User user) {
+        kafkaClientService.addUser(user);
     }
 
     @GetMapping("/getUserList")
     public List<User> getUserList() {
-        return clientService.getUserList();
+        return restClientService.getUserList();
     }
 
 }
