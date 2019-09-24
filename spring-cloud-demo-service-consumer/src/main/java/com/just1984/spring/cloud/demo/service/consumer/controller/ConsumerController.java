@@ -27,6 +27,10 @@ public class ConsumerController {
     @Qualifier("restClientService")
     private ClientService restClientService;
 
+    @Autowired
+    @Qualifier("remoteEventClientService")
+    private ClientService remoteEventClientService;
+
     @PostMapping("/addUser")
     public void addUser(@RequestBody User user) {
         restClientService.addUser(user);
@@ -35,6 +39,11 @@ public class ConsumerController {
     @PostMapping("/addUserAsync")
     public void addUserAsync(@RequestBody User user) {
         kafkaClientService.addUser(user);
+    }
+
+    @PostMapping("/addUserEvent")
+    public void addUserEvent(@RequestBody User user) {
+        remoteEventClientService.addUser(user);
     }
 
     @GetMapping("/getUserList")
