@@ -2,7 +2,6 @@ package com.just1984.spring.cloud.demo.service.provider.bus;
 
 import com.alibaba.fastjson.JSONObject;
 import com.just1984.spring.cloud.demo.service.api.bus.AddUserRemoteApplicationEvent;
-import com.just1984.spring.cloud.demo.service.api.vo.User;
 import com.just1984.spring.cloud.demo.service.provider.service.ProviderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +35,7 @@ public class RemoteApplicationEventListenerConfiguration {
     @EventListener(AddUserRemoteApplicationEvent.class)
     public void onAddUserRemoteApplicationEvent(AddUserRemoteApplicationEvent event) {
         log.info("监听到AddUserRemoteApplicationEvent事件：【{}】", JSONObject.toJSONString(event));
-        providerService.addUser((User) event.getSource());
+        providerService.addUser(event.getUser());
     }
 
 }

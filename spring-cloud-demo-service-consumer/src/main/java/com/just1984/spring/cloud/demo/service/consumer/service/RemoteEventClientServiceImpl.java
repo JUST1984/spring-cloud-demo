@@ -5,6 +5,7 @@ import com.just1984.spring.cloud.demo.service.api.sdk.ProviderApi;
 import com.just1984.spring.cloud.demo.service.api.vo.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.cloud.bus.BusProperties;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
@@ -20,6 +21,9 @@ import java.util.List;
 @Qualifier("remoteEventClientService")
 public class RemoteEventClientServiceImpl implements ClientService {
 
+    @Value("${spring-cloud-demo-service-provider.application.name}")
+    private String destinationService;
+
     @Autowired
     private ProviderApi providerApi;
 
@@ -31,12 +35,17 @@ public class RemoteEventClientServiceImpl implements ClientService {
 
     @Override
     public void addUser(User user) {
-        publisher.publishEvent(new AddUserRemoteApplicationEvent(user, busProperties.getId()));
+        publisher.publishEvent(new AddUserRemoteApplicationEvent(this, busProperties.getId(), destinationService + ":**", user));
     }
 
     @Override
     public List<User> getUserList() {
         return providerApi.getUserList();
+    }
+
+    @Override
+    public void clear() {
+        providerApi.clear();
     }
 
 }

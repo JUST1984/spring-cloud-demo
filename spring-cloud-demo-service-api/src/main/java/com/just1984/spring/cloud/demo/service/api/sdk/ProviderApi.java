@@ -37,6 +37,12 @@ public interface ProviderApi {
     @GetMapping("/getUserList")
     List<User> getUserList();
 
+    /**
+     * 清空用户列表
+     */
+    @GetMapping("/clear")
+    void clear();
+
     @Slf4j
     @Component
     class ProviderApiFallbackFactory implements FallbackFactory<ProviderApi> {
@@ -58,6 +64,9 @@ public interface ProviderApi {
         public List<User> getUserList() {
             return Lists.newArrayList();
         }
+
+        @Override
+        public void clear() {}
 
     }
 

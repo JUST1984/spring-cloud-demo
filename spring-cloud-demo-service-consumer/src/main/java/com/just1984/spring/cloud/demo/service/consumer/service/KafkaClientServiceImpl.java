@@ -39,4 +39,9 @@ public class KafkaClientServiceImpl implements ClientService {
         return providerApi.getUserList();
     }
 
+    @Override
+    public void clear() {
+        providerApi.clear();
+    }
+
 }

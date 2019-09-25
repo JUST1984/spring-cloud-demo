@@ -32,4 +32,9 @@ public class RestProviderServiceImpl implements ProviderService {
         return users;
     }
 
+    @Override
+    public void clear() {
+        users.clear();
+    }
+
 }

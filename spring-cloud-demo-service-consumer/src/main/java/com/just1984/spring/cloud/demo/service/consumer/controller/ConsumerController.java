@@ -51,4 +51,7 @@ public class ConsumerController {
         return restClientService.getUserList();
     }
 
+    @GetMapping("/clear")
+    public void clear() {}
+
 }

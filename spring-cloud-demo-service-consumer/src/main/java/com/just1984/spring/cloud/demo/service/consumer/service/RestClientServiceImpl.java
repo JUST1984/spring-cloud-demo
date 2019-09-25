@@ -32,4 +32,9 @@ public class RestClientServiceImpl implements ClientService {
         return providerApi.getUserList();
     }
 
+    @Override
+    public void clear() {
+        providerApi.clear();
+    }
+
 }

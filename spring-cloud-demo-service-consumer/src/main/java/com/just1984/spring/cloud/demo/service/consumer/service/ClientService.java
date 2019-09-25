@@ -23,4 +23,9 @@ public interface ClientService {
      */
     List<User> getUserList();
 
+    /**
+     * 清空用户列表
+     */
+    void clear();
+
 }

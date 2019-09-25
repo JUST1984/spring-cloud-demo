@@ -12,12 +12,20 @@ import org.springframework.cloud.bus.event.RemoteApplicationEvent;
 @Data
 public class AddUserRemoteApplicationEvent extends RemoteApplicationEvent {
 
-    public AddUserRemoteApplicationEvent(User user, String originService) {
-        super(user, originService);
+    private User user;
+
+    public AddUserRemoteApplicationEvent() {
+        this.user = null;
     }
 
-    public AddUserRemoteApplicationEvent(User user, String originService, String destinationService) {
-        super(user, originService, destinationService);
+    public AddUserRemoteApplicationEvent(Object source, String originService, User user) {
+        super(source, originService);
+        this.user = user;
+    }
+
+    public AddUserRemoteApplicationEvent(Object source, String originService, String destinationService, User user) {
+        super(source, originService, destinationService);
+        this.user = user;
     }
 
 }

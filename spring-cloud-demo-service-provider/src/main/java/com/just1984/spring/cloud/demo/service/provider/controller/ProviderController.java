@@ -44,11 +44,16 @@ public class ProviderController implements ProviderApi {
     @Override
     public List<User> getUserList() {
         try {
-            Thread.sleep(random.nextInt(200));
+            Thread.sleep(random.nextInt(100));
         } catch (InterruptedException e) {
             log.error("InterruptedException:", e);
         }
         return providerService.getUserList();
+    }
+
+    @Override
+    public void clear() {
+        providerService.clear();
     }
 
     public List<User> fallbackForGetUserList() {
