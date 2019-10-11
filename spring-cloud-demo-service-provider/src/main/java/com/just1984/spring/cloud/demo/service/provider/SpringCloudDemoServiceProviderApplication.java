@@ -10,7 +10,7 @@ import org.springframework.cloud.stream.annotation.EnableBinding;
 
 /**
  * @description: 服务提供方
- * @author: zhangyifan@wshifu.com
+ * @author: yixiezi1994@gmail.com
  * @date: 2019-08-26 19:56
  */
 @SpringBootApplication
