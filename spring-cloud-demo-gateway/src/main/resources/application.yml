@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: spring-cloud-demo-gateway
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+#      routes:
+#        - predicates:
+#            - Path=/provider/**
+#          filters:
+#            - AddResponseHeader=X-Response-Default-Foo, Default-Bar
+#          uri: lb://SPRING-CLOUD-DEMO-SERVICE-PROVIDER
+
+server:
+  port: 7777
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
